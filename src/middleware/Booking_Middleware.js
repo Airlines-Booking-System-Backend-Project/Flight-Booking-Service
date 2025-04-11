@@ -14,7 +14,16 @@ const constraintsForPayment = [
     { params: 'totalCost', dataType: 'number' }
 ]
 
+const isValidId = (req, res, next) => {
+    const id = parseInt(req.params.id)
+    if (isNaN(id)) {
+        return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse('id is not provided properly.', 'id provided should be a number.'))
+    }
+    next()
+}
+
 module.exports = {
     validateInput: validateInput(constraints),
-    validatePayment: validateInput(constraintsForPayment)
+    validatePayment: validateInput(constraintsForPayment),
+    isValidId
 }

@@ -11,6 +11,7 @@ async function createBooking(data) {
     const response = await prisma.$transaction(async (t) => {
         const flight = await axios.get(`${FLIGHT_SERVICE}/api/v1/flight/${data.flightId}`)
         const flightData = flight.data.data
+        console.log(flightData)
         if (flightData.totalSeats < data.noOfSeats) {
             throw new Error("Enough seats are not available.")
         }
